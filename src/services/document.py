@@ -6,7 +6,7 @@ from fastapi import UploadFile, HTTPException
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 import fitz
-from backend.core import settings, logger
+from src.core import settings, logger
 
 class DocumentService:
     def __init__(self):

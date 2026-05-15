@@ -3,7 +3,7 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage, AIMessage
 from langchain_core.outputs import ChatResult, ChatGeneration
 from ollama import AsyncClient, Client
-from backend.core import settings, logger
+from src.core import settings, logger
 
 
 class OllamaCloudChat(BaseChatModel):

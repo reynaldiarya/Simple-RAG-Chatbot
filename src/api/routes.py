@@ -1,9 +1,9 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
 from typing import List
 import asyncio
-from backend.models.schemas import ChatRequest, ChatResponse
-from backend.services.rag import RAGService
-from backend.services.document import DocumentService
+from src.models.schemas import ChatRequest, ChatResponse
+from src.services.rag import RAGService
+from src.services.document import DocumentService
 
 router = APIRouter()
 

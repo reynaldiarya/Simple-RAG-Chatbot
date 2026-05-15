@@ -20,8 +20,8 @@ class Settings(BaseSettings):
     chunk_overlap: int = 200
     
     # Storage paths
-    documents_dir: str = "backend/data/documents"
-    vector_db_dir: str = "backend/data/vector_db"
+    documents_dir: str = "src/data/documents"
+    vector_db_dir: str = "src/data/vector_db"
 
     class Config:
         env_file = ".env"

@@ -4,10 +4,10 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from backend.core import settings, logger
-from backend.services.document import DocumentService
-from backend.models import SourceNode, ChatResponse
-from backend.services.ollama import OllamaCloudChat
+from src.core import settings, logger
+from src.services.document import DocumentService
+from src.models import SourceNode, ChatResponse
+from src.services.ollama import OllamaCloudChat
 
 class RAGService:
     def __init__(self):

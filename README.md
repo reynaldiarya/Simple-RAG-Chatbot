@@ -59,7 +59,10 @@ cd Simple-RAG-Chatbot
 2. Create and activate a virtual environment:
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+# On Windows:
+.venv\Scripts\activate
+# On Linux/macOS:
+source venv/bin/activate
 ```
 
 3. Install the required dependencies:
@@ -74,7 +77,7 @@ cp .env.example .env
 
 5. Start the backend server:
 ```bash
-python -m backend.main
+python -m src.main
 ```
 
 6. In a new terminal, start the frontend application:
@@ -94,8 +97,8 @@ The application is configured via environment variables in the `.env` file.
 | `CHUNK_SIZE` | Character limit for document splitting | `1000` |
 | `CHUNK_OVERLAP` | Overlap between document chunks | `200` |
 | `SIMILARITY_THRESHOLD` | Minimum score for context retrieval (0.0 - 1.0) | `0.4` |
-| `DOCUMENTS_DIR` | Directory path for uploaded documents | `backend/data/documents` |
-| `VECTOR_DB_DIR` | Directory path for ChromaDB persistence | `backend/data/vector_db` |
+| `DOCUMENTS_DIR` | Directory path for uploaded documents | `src/data/documents` |
+| `VECTOR_DB_DIR` | Directory path for ChromaDB persistence | `src/data/vector_db` |
 
 ## Usage
 
@@ -126,7 +129,7 @@ Manually triggers the document processing and embedding pipeline.
 
 ```text
 /
-├── backend/
+├── src/
 │   ├── api/            # API routes and dependency injection
 │   ├── core/           # Configuration and logging system
 │   ├── models/         # Pydantic schemas and data structures
