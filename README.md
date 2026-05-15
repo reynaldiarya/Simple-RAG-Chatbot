@@ -5,8 +5,8 @@ An enterprise-ready Retrieval-Augmented Generation system for secure, private do
 <p align="center">
   <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" />
   <img src="https://img.shields.io/badge/Python-3.12+-3776AB.svg" />
-  <img src="https://img.shields.io/badge/FastAPI-0.115+-009688.svg" />
-  <img src="https://img.shields.io/badge/Streamlit-1.42+-FF4B4B.svg" />
+  <img src="https://img.shields.io/badge/FastAPI-0.136+-009688.svg" />
+  <img src="https://img.shields.io/badge/Streamlit-1.57+-FF4B4B.svg" />
   <a href="LICENSE">
     <img alt="License" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
   </a>
