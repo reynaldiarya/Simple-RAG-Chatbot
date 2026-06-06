@@ -1,22 +1,55 @@
+import os
 from contextlib import asynccontextmanager
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from src import logger, settings, router
-from fastapi import FastAPI
+from src.services.rag import RAGService
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """Initializes services at startup and stores them in app.state."""
     logger.info("Starting Simple RAG Chatbot API...")
-    from src.api.routes import get_rag_service
-    get_rag_service()
+
+    # Initialize RAG service
+    app.state.rag_service = RAGService()
+
     yield
+
     logger.info("Stopping Simple RAG Chatbot API...")
+
+
+# Disable API documentation in production
+_is_production = os.getenv("ENVIRONMENT", settings.environment).lower() == "production"
 
 app = FastAPI(
     title="Simple RAG Chatbot API",
-    lifespan=lifespan
+    lifespan=lifespan,
+    docs_url=None if _is_production else "/docs",
+    redoc_url=None if _is_production else "/redoc",
+    openapi_url=None if _is_production else "/openapi.json",
 )
 
 app.include_router(router, prefix="/api")
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Security Headers Middleware
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    """Applies security headers to HTTP responses."""
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    return response
+
+
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run("src.main:app", host=settings.host, port=settings.port, reload=True)
