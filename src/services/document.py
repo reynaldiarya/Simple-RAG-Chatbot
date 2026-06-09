@@ -6,7 +6,6 @@ from fastapi import UploadFile, HTTPException
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 import fitz
-from PIL import Image
 import easyocr
 from src.core import settings, logger
 

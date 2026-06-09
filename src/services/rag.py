@@ -10,7 +10,6 @@ from langchain_core.output_parsers import StrOutputParser
 from src.core import settings, logger
 from src.services.document import DocumentService
 from src.models import SourceNode, ChatResponse
-from src.models.schemas import HistoryMessage
 from src.services.ollama import OllamaCloudChat
 
 
@@ -87,10 +86,6 @@ class RAGService:
         # Chain for RAG
         self.chain = self.prompt | self.llm | StrOutputParser()
 
-    # ─────────────────────────────────────────────────────────────────
-    # Helper Methods
-    # ─────────────────────────────────────────────────────────────────
-
     def _sanitize_context(self, text: str) -> str:
         """Sanitizes context text before LLM injection."""
         dangerous_patterns = [
@@ -132,10 +127,6 @@ class RAGService:
         """Generates a deterministic ID for a document chunk."""
         raw = f"{source}:{index}:{content[:120]}"
         return hashlib.md5(raw.encode()).hexdigest()
-
-    # ─────────────────────────────────────────────────────────────────
-    # Index Management
-    # ─────────────────────────────────────────────────────────────────
 
     def reindex_all(self) -> int:
         """Rebuilds the vector index from stored documents."""
@@ -198,10 +189,6 @@ class RAGService:
         result["documents_deleted"] = self.doc_service.clear_all_documents()
 
         return result
-
-    # ─────────────────────────────────────────────────────────────────
-    # Chat
-    # ─────────────────────────────────────────────────────────────────
 
     async def chat(self, query: str, history: list = None) -> ChatResponse:
         """Processes a chat query and generates a response."""

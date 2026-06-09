@@ -1,7 +1,6 @@
 import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
 from src import logger, settings, router
 from src.services.rag import RAGService
 
@@ -31,11 +30,6 @@ app = FastAPI(
 )
 
 app.include_router(router, prefix="/api")
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Security Headers Middleware
-# ─────────────────────────────────────────────────────────────────────────────
 
 
 @app.middleware("http")

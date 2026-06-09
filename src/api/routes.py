@@ -1,14 +1,9 @@
 import asyncio
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, Body, Request
-from typing import List
 from src.models.schemas import ChatRequest, ChatResponse
 from src.services.rag import RAGService
 
 router = APIRouter()
-
-# ─────────────────────────────────────────────────────────────────────────────
-# File upload constants
-# ─────────────────────────────────────────────────────────────────────────────
 
 MAX_UPLOAD_SIZE_MB = 10
 MAX_UPLOAD_SIZE_BYTES = MAX_UPLOAD_SIZE_MB * 1024 * 1024
@@ -40,11 +35,6 @@ def _verify_magic_bytes(content: bytes, ext: str) -> bool:
     return False
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Dependencies
-# ─────────────────────────────────────────────────────────────────────────────
-
-
 def get_rag_service(request: Request) -> RAGService:
     """Retrieves the RAGService instance from app state."""
     return request.app.state.rag_service
@@ -53,11 +43,6 @@ def get_rag_service(request: Request) -> RAGService:
 def get_doc_service(request: Request):
     """Retrieves the DocumentService instance."""
     return request.app.state.rag_service.doc_service
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Endpoints
-# ─────────────────────────────────────────────────────────────────────────────
 
 
 @router.get("/health")
@@ -116,7 +101,7 @@ async def upload_document(
     # Reset file position so save_upload_file can read from the beginning
     await file.seek(0)
 
-    file_path = await doc_service.save_upload_file(file)
+    await doc_service.save_upload_file(file)
     return {"message": f"File '{file.filename}' uploaded successfully."}
 
 
